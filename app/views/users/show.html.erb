@@ -1,21 +1,26 @@
-<%= @user.email %>
-<%= @user.username %>
-<%= @user.latitude %>
-<%= @user.longitude %>
-<%= @user.address %>
+<div id="user-position">
+  <%= @user.username %>
+  <%= @user.address %>
+</div>
 
-<br>
-
-
-<% @user.messages.each do |message| %>
+<div>  
+  <% @user.messages.each do |message| %>
+    <div>
+      <ul>
+        <li>
+          <p><%= message.content %></p>
+          <p><%= message.latitude %></p>
+          <p><%= message.longitude %></p>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+      
+</div>
   
-  <div>  
-    <%= message.content %>
-    <%= message.latitude %>
-    <%= message.longitude %>
-  </div>
+      
+        
 
-<% end %>
 
 
 <%= form_tag("/messages", method: :post) do %>
@@ -25,3 +30,30 @@
   <input type="hidden" name="longitude" value="<%= @user.longitude %>">
   <input type="submit" value="Drop">
 <% end %>
+
+<!-- <div id="demo">
+  
+</div>
+
+<script>
+  var x = document.getElementById("demo");
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+  }
+  function showPosition(position) {
+      x.innerHTML = "Latitude: " + position.coords.latitude + 
+      "<br>Longitude: " + position.coords.longitude; 
+  }
+  console.log(navigator);
+  navigator.geolocation.getCurrentPosition(function(position) {
+    // console.log(position);
+  });
+
+  navigator.geolocation.watchPosition(function(position) {
+    console.log(position);
+  })
+</script> -->

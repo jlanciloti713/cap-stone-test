@@ -1,5 +1,12 @@
 <h1>Users</h1>
-<% @users.each do |user| %>
-  <%= link_to("#{user.email}", "/users/#{user.id}") %>
-  <%= user.latitude %>
-<% end %>
+
+<div>
+  <ul>
+    <% @users.each do |user| %>
+      <li>
+        <%= link_to("#{user.email}", "/users/#{user.id}") %>
+      </li>
+    <% end %>
+  </ul>
+</div>
+      
