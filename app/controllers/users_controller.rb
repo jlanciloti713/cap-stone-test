@@ -11,8 +11,9 @@ class UsersController < ApplicationController
 
   end
 
-  def updateposition
+  def update_position
     @user = User.find(current_user.id)
     render({json: @user, status: 200})
+    @user.update(latitude: params[:userLatitude], longitude: params[:userLongitude])
   end
 end
