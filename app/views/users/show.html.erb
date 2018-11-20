@@ -3,9 +3,9 @@
   <%= @user.address %>
 </div>
 
-<div>  
+<div id="messages-container">  
   <% @user.messages.each do |message| %>
-    <div>
+    <div class="message">
       <ul>
         <li>
           <p><%= message.content %></p>
@@ -24,11 +24,11 @@
 
 
 <%= form_tag("/messages", method: :post) do %>
-  <textarea name="content" placeholder="Leave a Message"><%= @new_message.content %></textarea>
-  <input type="hidden" name="user_id" value="<%= @user.id %>">
-  <input type="hidden" name="latitude" value="<%= @user.latitude %>">
-  <input type="hidden" name="longitude" value="<%= @user.longitude %>">
-  <input type="submit" value="Drop">
+  <textarea name="content" id= "message-box" placeholder="Leave a Message"><%= @new_message.content %></textarea>
+  <input type="hidden" name="user_id" id="user-id" value="<%= @user.id %>">
+  <input type="hidden" name="latitude" id="user-latitude" value="<%= @user.latitude %>">
+  <input type="hidden" name="longitude" id="user-longitude" value="<%= @user.longitude %>">
+  <input type="submit" id="message-button" value="Drop">
 <% end %>
 
 <!-- <div id="demo">

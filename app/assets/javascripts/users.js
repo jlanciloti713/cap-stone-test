@@ -15,7 +15,10 @@ $(document).ready(function() {
         datatype: "json",
         data: {userLatitude: lat, userLongitude: lon},
         success: function(response) {
+        
         console.log(response);
+        prependToList(response)
+
         },
         error: function(response) {
         console.log(response);
@@ -23,6 +26,41 @@ $(document).ready(function() {
       });
     };
 
+function prependToList(data) {
+    var messagesContainer = $("#messages-container");
+    var messageBox = $("#message-box");
+    var messageButton = $("#message-button");
+    var CSRFToken = $('meta[name="csrf-token"]').prop("content");
+    var userID = $("#user-id").prop("value");
+    var userLatitude = $("#user-latitude").prop("value");
+    var userLongitude = $("#user-longitude").prop("value");
 
+    messageButton.on("click", function(event) {
+      event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/messages",
+      headers: {'X-CSRF-TOKEN': CSRFToken}, 
+      data: {user_id: userID, content: messageBox.prop("value"), latitude: userLatitude, longitude: userLongitude},
+      datatype: 'json',
+      success: function(response) {
+        messagesContainer.append(
+          `<div class="message">
+            <ul>
+              <li>
+                <p>${response.content}</p>
+                <p>${response.latitude}</p>
+                <p>${response.longitude}</p>
+              </li>
+            </ul>
+           </div>`
+          );
+        },
+      error: function(response) {
+        console.log(response);
+      }
+    });
+    });
+}
 
 });
