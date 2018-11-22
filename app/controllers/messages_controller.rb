@@ -8,10 +8,17 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @new_message.save
-        # format.html {redirect_to("/users/#{@new_message.user.id}")}
         format.json {render json: @new_message}
+        format.html {redirect_to("/users/#{@new_message.user.id}")}
+      else
+        format.html do
+          @user = User.find(params[:id])
+          render '/users/show'
+        end
+        format.json {render json: {errors: @new_message.errors.full_messages}, status: 400}
       end
     end
+      
   end
 
 
