@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 
   def show
     id = params[:id]
+    Message.unscoped.order(id: :desc)
     @user = User.find(params[:id])
     @new_message = Message.new
 

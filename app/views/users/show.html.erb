@@ -15,7 +15,7 @@
 
 
 <div id="messages-container">  
-  <% @user.messages.each do |message| %>
+  <% @user.messages.order(id: :desc).each do |message| %>
     <div class="message">
       <ul>
         <li>
