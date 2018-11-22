@@ -22,6 +22,7 @@
           <p><%= message.content %></p>
           <p><%= message.latitude %></p>
           <p><%= message.longitude %></p>
+          <p><%= link_to("Delete", "/messages/#{message.id}", method: :delete) %></p>
         </li>
       </ul>
     </div>

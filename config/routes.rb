@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get '/users/:id' => 'users#show'
   get '/messages' => 'messages#index'
   post '/messages' => 'messages#create'
+  delete '/messages/:id' => 'messages#destroy'
 end

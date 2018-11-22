@@ -50,6 +50,7 @@ $(document).ready(function() {
               <p>${response.content}</p>
               <p>${response.latitude}</p>
               <p>${response.longitude}</p>
+              <p><a href='/messages/${response.id}' rel="nofollow" data-method="delete">Delete</a></p>
             </li>
           </ul>
          </div>`

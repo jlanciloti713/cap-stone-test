@@ -21,5 +21,11 @@ class MessagesController < ApplicationController
       
   end
 
+  def destroy
+      user_id = Message.find(params[:id]).user_id
+        Message.find(params[:id]).destroy
+        redirect_to "/users/#{user_id}"
+  end
+
 
 end
