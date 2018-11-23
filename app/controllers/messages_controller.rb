@@ -27,5 +27,11 @@ class MessagesController < ApplicationController
         redirect_to "/users/#{user_id}"
   end
 
+  def found_messages
+    id = params[:id]
+    @user = User.find(params[:id])
+    @close_messages = Message.all
+  end
+
 
 end

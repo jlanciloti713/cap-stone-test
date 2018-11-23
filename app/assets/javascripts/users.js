@@ -33,6 +33,7 @@ $(document).ready(function() {
   var userID = $("#user-id").prop("value");
   var userLatitude = $("#user-latitude").prop("value");
   var userLongitude = $("#user-longitude").prop("value");
+  var userAddress = $("#user-address").prop("value");
 
   messageButton.on("click", function(event) {
     event.preventDefault();
@@ -40,7 +41,7 @@ $(document).ready(function() {
     type: "POST",
     url: "/messages",
     headers: {'X-CSRF-TOKEN': CSRFToken}, 
-    data: {user_id: userID, content: messageBox.prop("value"), latitude: userLatitude, longitude: userLongitude},
+    data: {user_id: userID, content: messageBox.prop("value"), latitude: userLatitude, longitude: userLongitude, address: userAddress},
     datatype: 'json',
     success: function(response) {
       messagesContainer.prepend(
