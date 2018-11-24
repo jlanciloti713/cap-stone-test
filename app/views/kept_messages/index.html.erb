@@ -1,0 +1,10 @@
+<h1>Collection</h1>
+
+<% @kept_messages.each do |kept_message| %>
+  <% if user_signed_in? && current_user.id == kept_message.user_id %>
+      <div>
+          <h3><%= kept_message.message.content %></h3>
+      </div>
+  <% end %>
+<% end %>
+

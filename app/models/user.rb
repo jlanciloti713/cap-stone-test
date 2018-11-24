@@ -4,10 +4,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :trackable
   has_many :messages
+  has_many :kept_messages
 
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
+  def go_to_mc
+    self.latitude = 40.9551
+    self.longitude = 90.3838
+    p self
+    save
+  end
+    
 
   def go_to_las_vegas
     self.latitude = 36.1662859

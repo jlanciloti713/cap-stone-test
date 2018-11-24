@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_220815) do
+ActiveRecord::Schema.define(version: 2018_11_24_055143) do
+
+  create_table "kept_messages", force: :cascade do |t|
+    t.boolean "is_kept"
+    t.integer "message_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
