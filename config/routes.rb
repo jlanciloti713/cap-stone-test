@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   get '/kept_messages' => 'kept_messages#index'
   post '/kept_messages' => 'kept_messages#create'
+  delete '/kept_messages/:id' => 'kept_messages#destroy'
 end

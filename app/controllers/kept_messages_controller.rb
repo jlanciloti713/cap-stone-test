@@ -9,4 +9,11 @@ class KeptMessagesController < ApplicationController
     
     @kept_messages = KeptMessage.all
   end
+
+  def destroy
+      user_id = KeptMessage.find(params[:id]).user_id
+        KeptMessage.find(params[:id]).destroy
+        redirect_to "/kept_messages"
+  end
+
 end

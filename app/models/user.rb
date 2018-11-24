@@ -9,9 +9,9 @@ class User < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
   after_validation :reverse_geocode
 
-  def go_to_mc
-    self.latitude = 40.9551
-    self.longitude = 90.3838
+  def go_to_cottage
+    self.latitude = 40.955542
+    self.longitude = -90.365709
     p self
     save
   end
