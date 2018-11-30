@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  var messageAmount = $('#message-amount');
 
   navigator.geolocation.watchPosition(getLocation);
     function getLocation(pos) {
@@ -15,7 +16,7 @@ $(document).ready(function() {
         datatype: "json",
         data: {userLatitude: lat, userLongitude: lon},
         success: function(response) {
-        
+          messageAmount.html(response.nearby_messages.length);
         console.log(response);
 
         },
@@ -25,7 +26,6 @@ $(document).ready(function() {
       });
     };
 
-
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
   var messageButton = $("#message-button");
@@ -34,35 +34,37 @@ $(document).ready(function() {
   var userLatitude = $("#user-latitude").prop("value");
   var userLongitude = $("#user-longitude").prop("value");
   var userAddress = $("#user-address").prop("value");
-
   messageButton.on("click", function(event) {
     event.preventDefault();
-  $.ajax({
-    type: "POST",
-    url: "/messages",
-    headers: {'X-CSRF-TOKEN': CSRFToken}, 
-    data: {user_id: userID, content: messageBox.prop("value"), latitude: userLatitude, longitude: userLongitude, address: userAddress},
-    datatype: 'json',
-    success: function(response) {
-      messagesContainer.prepend(
-        `<div class="message">
-          <ul>
-            <li>
-              <p>${response.content}</p>
-              <p>${response.latitude}</p>
-              <p>${response.longitude}</p>
-              <p><a href='/messages/${response.id}' rel="nofollow" data-method="delete">Delete</a></p>
-            </li>
-          </ul>
-         </div>`
-        );
-      messageBox.prop("value", "")
-      },
-    error: function(response) {
-      console.log(response);
-    }
+    $.ajax({
+      type: "POST",
+      url: "/messages",
+      headers: {'X-CSRF-TOKEN': CSRFToken}, 
+      data: {user_id: userID, content: messageBox.prop("value"), latitude: userLatitude, longitude: userLongitude, address: userAddress},
+      datatype: 'json',
+      success: function(response) {
+        messagesContainer.prepend(
+          `<div class="message">
+            <ul>
+              <li>
+                <p>${response.content}</p>
+                <p>${response.latitude}</p>
+                <p>${response.longitude}</p>
+                <p><a href='/messages/${response.id}' rel="nofollow" data-method="delete">Delete</a></p>
+              </li>
+            </ul>
+           </div>`
+          );
+        messageBox.prop("value", "")
+        },
+      error: function(response) {
+        console.log(response);
+      }
+    });
   });
 
-  });
+
+
+
 
 });

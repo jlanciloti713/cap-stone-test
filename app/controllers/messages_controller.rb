@@ -21,6 +21,10 @@ class MessagesController < ApplicationController
       
   end
 
+  def leave_it
+    @message = Message.update( is_left: true )
+  end
+
   def destroy
       user_id = Message.find(params[:id]).user_id
         Message.find(params[:id]).destroy

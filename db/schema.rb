@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_24_055143) do
+ActiveRecord::Schema.define(version: 2018_11_25_204530) do
 
   create_table "kept_messages", force: :cascade do |t|
     t.boolean "is_kept"
