@@ -26,9 +26,4 @@ class UsersController < ApplicationController
     @message_amount = @messages.length
     render({json: {user: @user, nearby_messages: @messages}, status: 200})
   end
-
-  # def kept_counter
-  #   @kept_message = KeptMessage.find_by(params[:message_id])
-  #   render {json: @kept_message, status: 200}
-  # end
 end

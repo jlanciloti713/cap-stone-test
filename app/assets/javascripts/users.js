@@ -17,14 +17,14 @@ $(document).ready(function() {
         data: {userLatitude: lat, userLongitude: lon},
         success: function(response) {
           messageAmount.html(response.nearby_messages.length);
-        console.log(response);
-
+          console.log(response);
         },
         error: function(response) {
-        console.log(response);
+          console.log(response);
         }
       });
     };
+
 
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
@@ -63,6 +63,26 @@ $(document).ready(function() {
     });
   });
 
+  var keepButton = $("#keep-button");
+  var messageID = $("#message-id").prop("value");
+  keepButton.on("click", function(event){
+    event.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: "/kept_messages",
+      headers: {'X-CSRF-TOKEN': CSRFToken},
+      data: {user_id: userID, message_id: messageID},
+      datatype: 'json',
+      success: function(response) {
+
+        messagesContainer.html(response)
+        console.log(response);
+      },
+      error: function(response) {
+        console.log(response);
+      }
+    });
+  });
 
 
 
