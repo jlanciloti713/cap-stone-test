@@ -4,9 +4,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show
-    # message_id = params[:message_id]
-    # @kept_message = KeptMessage.find_by(params[:message_id])
+  def update_show
     id = params[:id]
     if params[:id]
       @user = User.find(params[:id])
@@ -16,6 +14,33 @@ class UsersController < ApplicationController
       @user = current_user
       Message.unscoped.order(id: :desc)
       @new_message = Message.new
+
+      respond_to do |format|
+        format.json do
+          render json: @user.messages, include: :kept_messages
+        end
+        format.html {render 'show'}
+      end
+    end 
+  end
+  
+  def show
+    id = params[:id]
+    if params[:id]
+      @user = User.find(params[:id])
+      Message.unscoped.order(id: :desc)
+      @new_message = Message.new
+    else
+      @user = current_user
+      Message.unscoped.order(id: :desc)
+      @new_message = Message.new
+
+      respond_to do |format|
+        format.json do
+          render json: @user.messages, include: :kept_messages
+        end
+        format.html {render 'show'}
+      end
     end
   end
 

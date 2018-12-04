@@ -23,6 +23,41 @@ $(document).ready(function() {
           console.log(response);
         }
       });
+
+        // Define controller action for this ajax request to send to. It should grab all of the current user's messages and return them, as well as the amount of times they've been kept.
+
+        $.ajax({
+          type: "GET",
+          url: "/users/update_show",
+          datatype: 'json',
+          success: function(response) {
+            var messagesContainerHTML = "";
+
+            for (var i = 0; i < response.length; i++) {
+              messagesContainerHTML += (
+                `<div class="message">
+                  <ul>
+                    <li>
+                      <p>${response[i].content} (${response[i].kept_messages.length})</p>
+                      <p>${response[i].latitude}</p>
+                      <p>${response[i].longitude}</p>
+                      <p><a href='/messages/${response.id}' rel="nofollow" data-method="delete">Delete</a></p>
+                    </li>
+                  </ul>
+                 </div>`
+                );
+              console.log(response[i]);
+            }
+
+            messagesContainer.html(messagesContainerHTML);
+          },
+          error: function(response) {
+            console.log(response);
+          }
+        });
+          
+
+  
     };
 
 
@@ -75,7 +110,6 @@ $(document).ready(function() {
       datatype: 'json',
       success: function(response) {
 
-        messagesContainer.html(response)
         console.log(response);
       },
       error: function(response) {
