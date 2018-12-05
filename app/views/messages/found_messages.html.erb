@@ -1,22 +1,23 @@
 <h1>You found these!</h1>
 
-
 <% @close_messages.each do |close_message| %>
   <% if Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) == 0 || Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) < 0.01 %>
     <div>
       <ul>
-        <li>
-           <p><%= close_message.content %></p>
-           <p><%= close_message.latitude %></p>
-           <p><%= close_message.longitude %></p>
-           <div id="keep-button">
-             <%=form_tag("/kept_messages", method: :post) do%>
-              <input type="hidden" name="user_id" id="user-id" value="<%= current_user.id %>">
-              <input type="hidden" name="message_id" id="message-id" value="<%= close_message.id %>">
-              <input type="submit" value="Keep it?">
-             <% end %>
-           </div>
-        </li>
+        <% if current_user.kept_messages.where(message_id: close_message.id).count == 0 %>
+          <li>
+            <p><%= close_message.content %></p>
+            <p><%= close_message.latitude %></p>
+            <p><%= close_message.longitude %></p>
+            <div id="keep-button">
+              <%=form_tag("/kept_messages", method: :post) do%>
+                <input type="hidden" name="user_id" id="user-id" value="<%= current_user.id %>">
+                <input type="hidden" name="message_id" id="message-id" value="<%= close_message.id %>">
+                <input type="submit" value="Keep it?">
+              <% end %>
+            </div>
+          </li>
+        <% end %>
       </ul>
     </div>
   <% end %>
