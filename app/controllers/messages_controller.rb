@@ -18,16 +18,12 @@ class MessagesController < ApplicationController
         format.json {render json: {errors: @new_message.errors.full_messages}, status: 400}
       end
     end
+  end
       
-  end
-
-  def leave_it
-    @message = Message.update( is_left: true )
-  end
 
   def destroy
       user_id = Message.find(params[:id]).user_id
-        Message.find(params[:id]).destroy
+        Message.find(params[:id]).update( archived: true )
         redirect_to "/users/#{user_id}"
   end
 

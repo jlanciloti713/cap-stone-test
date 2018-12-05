@@ -4,14 +4,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:username])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:latitude])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:latitude])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:longitude])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:longitude])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:address])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:address])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :latitude, :longitude, :address])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :latitude, :longitude, :address])
   end
 
   def authenticate_admin!

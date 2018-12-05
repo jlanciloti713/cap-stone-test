@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     id = params[:id]
     if params[:id]
       @user = User.find(params[:id])
-      Message.unscoped.order(id: :desc)
+      @user_messages = Message.where(archived: false, user_id: @user.id).order(id: :desc)
       @new_message = Message.new
     else
       @user = current_user
@@ -29,10 +29,10 @@ class UsersController < ApplicationController
     id = params[:id]
     if params[:id]
       @user = User.find(params[:id])
-      Message.unscoped.order(id: :desc)
       @new_message = Message.new
     else
       @user = current_user
+      @user_messages = Message.where(archived: false, user_id: @user.id).order(id: :desc)
       Message.unscoped.order(id: :desc)
       @new_message = Message.new
 

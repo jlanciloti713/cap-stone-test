@@ -41,7 +41,7 @@ $(document).ready(function() {
                       <p>${response[i].content} (${response[i].kept_messages.length})</p>
                       <p>${response[i].latitude}</p>
                       <p>${response[i].longitude}</p>
-                      <p><a href='/messages/${response[i].id}' rel="nofollow" data-method="delete">Delete</a></p>
+                      <p><a href='/messages/${response[i].id}' rel="nofollow" data-method="put">Delete</a></p>
                     </li>
                   </ul>
                  </div>`
@@ -85,7 +85,7 @@ $(document).ready(function() {
                 <p>${response.content}</p>
                 <p>${response.latitude}</p>
                 <p>${response.longitude}</p>
-                <p><a href='/messages/${response.id}' rel="nofollow" data-method="delete">Delete</a></p>
+                <p><a href='/messages/${response.id}' rel="nofollow" data-method="put">Delete</a></p>
               </li>
             </ul>
            </div>`

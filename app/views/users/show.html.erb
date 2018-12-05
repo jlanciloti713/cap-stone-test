@@ -15,18 +15,19 @@
   <input type="hidden" name="address" id="user-address" value="<%= @user.address %>">
   <input type="submit" id="message-button" value="Drop">
 <% end %>
-        
+
 <div id="messages-container">  
-  <% @user.messages.order(id: :desc).each do |message| %>
+  <% @user_messages.each do |message| %>
     <div class="message">
       <ul>
         <li>
           <p><%= message.content %></p>
           <p><%= message.latitude %></p>
           <p><%= message.longitude %></p>
-          <p><%= link_to("Delete", "/messages/#{message.id}", method: :delete) %></p>
+          <p><%= link_to("Delete", "/messages/#{message.id}", method: :put) %></p>
         </li>
       </ul>
     </div>
   <% end %>
 </div>
+       
