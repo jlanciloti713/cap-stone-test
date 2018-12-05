@@ -10,7 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_25_204530) do
+ActiveRecord::Schema.define(version: 2018_12_05_012234) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "kept_messages", force: :cascade do |t|
     t.boolean "is_kept"
@@ -47,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_11_25_204530) do
     t.float "latitude"
     t.float "longitude"
     t.string "address"
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
