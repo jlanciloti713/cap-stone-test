@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:address])
   end
 
+  def authenticate_admin!
+    if current_user.admin? == false
+      flash[:notice] = "You must be an admin to order to access that!"
+      redirect_to "/"
+    end
+
+  end
+
+
 end
