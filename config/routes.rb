@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/' => 'users#index'
   get '/users' => 'users#index'
   put '/users/currentposition' => 'users#update_position'
   get 'users/update_show' => 'users#update_show'

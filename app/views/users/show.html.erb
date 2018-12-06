@@ -4,8 +4,6 @@
   <%= @user.latitude %>
   <%= @user.longitude %>
 </div>
-
-<h3 id="message-amount"></h3>
   
 <%= form_tag("/messages", method: :post) do %>
   <textarea name="content" id= "message-box" placeholder="Leave a Message"><%= @new_message.content %></textarea>
