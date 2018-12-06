@@ -34,7 +34,8 @@ $(document).ready(function() {
             var messagesContainerHTML = "";
 
             for (var i = 0; i < response.length; i++) {
-              messagesContainerHTML += (
+              if (response[i].archived == false) {
+                messagesContainerHTML += (
                 `<div class="message">
                   <ul>
                     <li>
@@ -45,7 +46,9 @@ $(document).ready(function() {
                     </li>
                   </ul>
                  </div>`
-                );
+                );  
+              }
+              
               console.log(response[i]);
             }
 
@@ -59,7 +62,6 @@ $(document).ready(function() {
 
   
     };
-
 
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
@@ -118,7 +120,8 @@ $(document).ready(function() {
     });
   });
 
-
-
-
 });
+
+
+
+

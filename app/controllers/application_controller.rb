@@ -13,8 +13,8 @@ class ApplicationController < ActionController::Base
       flash[:notice] = "You must be an admin to order to access that!"
       redirect_to "/"
     end
-
   end
 
-
 end
+
+

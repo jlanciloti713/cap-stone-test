@@ -19,19 +19,26 @@ class MessagesController < ApplicationController
       end
     end
   end
-      
 
+  def update
+
+    @message = Message.find(params[:id])
+    @message.update( archived: true )
+    redirect_to "/users/#{current_user.id}"
+  end
+      
   def destroy
       user_id = Message.find(params[:id]).user_id
-        Message.find(params[:id]).update( archived: true )
+        Message.find(params[:id]).delete
         redirect_to "/users/#{user_id}"
   end
 
   def found_messages
     id = params[:id]
     @user = User.find(params[:id])
-    @close_messages = Message.all
+    @close_messages = Message.where(archived: false )
   end
 
-
 end
+
+
