@@ -52,8 +52,10 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
     @user.update(latitude: params[:userLatitude], longitude: params[:userLongitude])
     @messages = Message.where(archived: false).near([@user.latitude, @user.longitude], 0.01)
-    @message_amount = @messages.length
-    render({json: {user: @user, nearby_messages: @messages}, status: 200})
+    @unkept_nearby_messages = @messages - @user.bloops.where(archived: false).near([@user.latitude, @user.longitude], 0.01) 
+    @message_amount = @unkept_nearby_messages.length
+
+    render({json: {user: @user, nearby_messages: @unkept_nearby_messages}, status: 200})
   end
   
 end

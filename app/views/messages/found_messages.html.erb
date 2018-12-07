@@ -1,8 +1,8 @@
-<h1>You found these!</h1>
+<h1>You Found These!</h1>
 
 <% @close_messages.each do |close_message| %>
   <% if Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) == 0 || Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) < 0.01 %>
-    <div>
+    <div id="close-message">
       <ul>
         <% if current_user.kept_messages.where(message_id: close_message.id).count == 0 %>
           <li>

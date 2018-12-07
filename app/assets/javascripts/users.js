@@ -1,7 +1,11 @@
 $(document).ready(function() {
   var messageAmount = $('#message-amount');
-
   navigator.geolocation.watchPosition(getLocation);
+  setInterval(function(){
+    navigator.geolocation.getCurrentPosition(getLocation);
+  }, 5000);
+
+
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");
         var lat = pos.coords.latitude;
@@ -48,21 +52,18 @@ $(document).ready(function() {
                  </div>`
                 );  
               }
-              
               console.log(response[i]);
             }
-
             messagesContainer.html(messagesContainerHTML);
           },
           error: function(response) {
             console.log(response);
           }
         });
-          
-
-  
     };
+              
 
+          
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
   var messageButton = $("#message-button");
@@ -100,28 +101,4 @@ $(document).ready(function() {
     });
   });
 
-  var keepButton = $("#keep-button");
-  var messageID = $("#message-id").prop("value");
-  keepButton.on("click", function(event){
-    event.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: "/kept_messages",
-      headers: {'X-CSRF-TOKEN': CSRFToken},
-      data: {user_id: userID, message_id: messageID},
-      datatype: 'json',
-      success: function(response) {
-
-        console.log(response);
-      },
-      error: function(response) {
-        console.log(response);
-      }
-    });
-  });
-
 });
-
-
-
-
