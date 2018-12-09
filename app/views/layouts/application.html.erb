@@ -62,8 +62,11 @@
         </div>
       </nav>
     <% end %>
-
-    <%= yield %>
+    <div class="container">
+      <%= flash_messages %>
+      <%= yield %>
+    </div>
+      
     
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
