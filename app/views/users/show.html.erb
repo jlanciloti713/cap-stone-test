@@ -30,3 +30,17 @@
   <% end %>
 </div>
        
+<script>
+  var x = document.getElementById("demo");
+  function getLocation() {
+          navigator.geolocation.getCurrentPosition(showPosition);
+  }
+  function showPosition(position) {
+      demo.innerHTML = "Latitude: " + position.coords.latitude + 
+      "<br>Longitude: " + position.coords.longitude; 
+  }
+  setInterval(function(){
+    navigator.geolocation.getCurrentPosition(getLocation);
+    console.log("HEY MAMA")
+  }, 5000);
+</script> -->

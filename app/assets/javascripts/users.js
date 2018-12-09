@@ -5,7 +5,6 @@ $(document).ready(function() {
     navigator.geolocation.getCurrentPosition(getLocation);
   }, 5000);
 
-
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");
         var lat = pos.coords.latitude;
