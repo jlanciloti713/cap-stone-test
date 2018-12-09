@@ -1,9 +1,9 @@
 $(document).ready(function() {
   var messageAmount = $('#message-amount');
-  navigator.geolocation.watchPosition(getLocation);
+  navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
     navigator.geolocation.getCurrentPosition(getLocation);
-  }, 5000);
+  }, 2000);
 
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");
@@ -52,7 +52,7 @@ $(document).ready(function() {
                 );  
               }
               console.log(response[i]);
-            }
+            };
             messagesContainer.html(messagesContainerHTML);
           },
           error: function(response) {
