@@ -1,29 +1,33 @@
-<h1>Leave a Mark</h1>
+<h1 class="text-center">Leave a Mark</h1>
 <div id="user-position">
   <%= @user.username %>
   <%= @user.address %>
   <%= @user.latitude %>
   <%= @user.longitude %>
 </div>
-  
+
 <%= form_tag("/messages", method: :post) do %>
-  <textarea name="content" id= "message-box" placeholder="Leave a Message"><%= @new_message.content %></textarea>
-  <input type="hidden" name="user_id" id="user-id" value="<%= @user.id %>">
-  <input type="hidden" name="latitude" id="user-latitude" value="<%= @user.latitude %>">
-  <input type="hidden" name="longitude" id="user-longitude" value="<%= @user.longitude %>">
-  <input type="hidden" name="address" id="user-address" value="<%= @user.address %>">
-  <input type="submit" id="message-button" value="Drop">
+  <div class="input-group mb-3">
+    <input name= "content" type="text" class="form-control" id="message-box" placeholder="Place message here" aria-label="Place message here" aria-describedby="button-addon2" value="<%= @new_message.content %>">
+    <input type="hidden" name="user_id" id="user-id" value="<%= @user.id %>">
+    <input type="hidden" name="latitude" id="user-latitude" value="<%= @user.latitude %>">
+    <input type="hidden" name="longitude" id="user-longitude" value="<%= @user.longitude %>">
+    <input type="hidden" name="address" id="user-address" value="<%= @user.address %>">
+    <div class="input-group-append">
+        <input class="btn btn-outline-secondary" type="submit" id="message-button" id="button-addon2" id="message-button" value="Push">
+    </div>
+  </div>
 <% end %>
 
 <div id="messages-container">  
   <% @user_messages.each do |message| %>
     <div class="message">
-      <ul>
-        <li>
-          <p><%= message.content %></p>
-          <p><%= message.latitude %></p>
-          <p><%= message.longitude %></p>
-          <p><%= link_to("Delete", "/messages/#{message.id}", method: :put) %></p>
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <%= message.content %>
+          <%= message.latitude %>
+          <%= message.longitude %>
+          <%= link_to("Delete", "/messages/#{message.id}", method: :put) %>
         </li>
       </ul>
     </div>

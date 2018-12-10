@@ -3,7 +3,7 @@ $(document).ready(function() {
   navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
     navigator.geolocation.getCurrentPosition(getLocation);
-  }, 2000);
+  }, 1000);
 
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");
@@ -40,12 +40,13 @@ $(document).ready(function() {
               if (response[i].archived == false) {
                 messagesContainerHTML += (
                 `<div class="message">
-                  <ul>
-                    <li>
-                      <p>${response[i].content} (${response[i].kept_messages.length})</p>
-                      <p>${response[i].latitude}</p>
-                      <p>${response[i].longitude}</p>
-                      <p><a href='/messages/${response[i].id}' rel="nofollow" data-method="put">Delete</a></p>
+                  <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      <span class="badge badge-primary badge-pill">${response[i].kept_messages.length}</span>
+                      ${response[i].content}
+                      ${response[i].latitude}
+                      ${response[i].longitude}
+                      <a href='/messages/${response[i].id}' rel="nofollow" data-method="put">Delete</a>
                     </li>
                   </ul>
                  </div>`
@@ -82,12 +83,12 @@ $(document).ready(function() {
       success: function(response) {
         messagesContainer.prepend(
           `<div class="message">
-            <ul>
-              <li>
-                <p>${response.content}</p>
-                <p>${response.latitude}</p>
-                <p>${response.longitude}</p>
-                <p><a href='/messages/${response.id}' rel="nofollow" data-method="put">Delete</a></p>
+            <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                ${response.content}
+                ${response.latitude}
+                ${response.longitude}
+                <a href='/messages/${response.id}' rel="nofollow" data-method="put">Delete</a>
               </li>
             </ul>
            </div>`
