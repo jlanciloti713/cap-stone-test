@@ -62,8 +62,6 @@ $(document).ready(function() {
         });
     };
               
-
-          
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
   var messageButton = $("#message-button");
@@ -85,6 +83,7 @@ $(document).ready(function() {
           `<div class="message">
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="badge badge-primary badge-pill">${response.kept_messages.length}</span>
                 ${response.content}
                 ${response.latitude}
                 ${response.longitude}
@@ -101,4 +100,10 @@ $(document).ready(function() {
     });
   });
 
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
+
 });
+
+          

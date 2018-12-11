@@ -1,5 +1,21 @@
 <h1>Your Collection</h1>
 
+
+<% if @kept_messages.length > 0 %>
+  <% @kept_messages.each do |kept_message| %>
+    <% if user_signed_in? && current_user.id == kept_message.user_id %>
+      <ul>
+        <li>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="popover" title="Popover title" data-html="true" data-content="<%= link_to("Dust", "/kept_messages/#{kept_message.id}", method: :delete) %>"><%= kept_message.message.content %></button>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>
+      
+      
+
+
 <% if @kept_messages.length > 0 %>
   <% @kept_messages.each do |kept_message| %>
     <% if user_signed_in? && current_user.id == kept_message.user_id %>

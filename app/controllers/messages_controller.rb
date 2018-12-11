@@ -8,7 +8,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @new_message.save
-        format.json {render json: @new_message}
+        format.json {render json: @new_message, include: :kept_messages}
         format.html {redirect_to("/users/#{@new_message.user.id}")}
       else
         format.html do

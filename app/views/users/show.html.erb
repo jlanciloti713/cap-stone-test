@@ -24,6 +24,7 @@
     <div class="message">
       <ul class="list-group">
         <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span class="badge badge-primary badge-pill"><%= "#{message.kept_messages.length}" %></span>
           <%= message.content %>
           <%= message.latitude %>
           <%= message.longitude %>

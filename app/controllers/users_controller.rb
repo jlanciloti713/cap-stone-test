@@ -20,7 +20,7 @@ class UsersController < ApplicationController
 
       respond_to do |format|
         format.json do
-          render json: @user.messages, include: :kept_messages
+          render json: @user.messages.order(created_at: :desc), include: :kept_messages
         end
         format.html {render 'show'}
       end
