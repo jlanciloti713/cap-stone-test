@@ -6,7 +6,7 @@
     <% if user_signed_in? && current_user.id == kept_message.user_id %>
       <ul class="list-unstyled">
         <li>
-            <button type="button" class="btn btn-lg btn-white" id="button-hover" data-toggle="popover" title="Keep options" data-html="true" data-content="<a rel='nofollow' data-method='delete' href='/kept_messages/<%= kept_message.id %>'>Delete</a>"><%= kept_message.message.content %></button>
+            <button type="button" class="btn btn-lg btn-white" data-toggle="popover" title="Keep options" data-html="true" data-content="<a rel='nofollow' data-method='delete' href='/kept_messages/<%= kept_message.id %>'>Delete</a>"><%= kept_message.message.content %></button>
         </li>
       </ul>
     <% end %>

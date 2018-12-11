@@ -6,7 +6,7 @@ $(document).ready(function() {
   navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
     navigator.geolocation.getCurrentPosition(getLocation);
-  }, 700);
+  }, 3000);
 
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");
