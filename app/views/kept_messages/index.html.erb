@@ -4,25 +4,11 @@
 <% if @kept_messages.length > 0 %>
   <% @kept_messages.each do |kept_message| %>
     <% if user_signed_in? && current_user.id == kept_message.user_id %>
-      <ul>
+      <ul class="list-unstyled">
         <li>
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="popover" title="Popover title" data-html="true" data-content="<%= link_to("Dust", "/kept_messages/#{kept_message.id}", method: :delete) %>"><%= kept_message.message.content %></button>
+            <button type="button" class="btn btn-lg btn-white" id="button-hover" data-toggle="popover" title="Keep options" data-html="true" data-content="<a rel='nofollow' data-method='delete' href='/kept_messages/<%= kept_message.id %>'>Delete</a>"><%= kept_message.message.content %></button>
         </li>
       </ul>
-    <% end %>
-  <% end %>
-<% end %>
-      
-      
-
-
-<% if @kept_messages.length > 0 %>
-  <% @kept_messages.each do |kept_message| %>
-    <% if user_signed_in? && current_user.id == kept_message.user_id %>
-        <div>
-            <p><%= kept_message.message.content %></p>
-            <p><%= link_to("Dust", "/kept_messages/#{kept_message.id}", method: :delete) %></p>
-        </div>
     <% end %>
   <% end %>
 <% end %>

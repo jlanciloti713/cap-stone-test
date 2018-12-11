@@ -1,5 +1,8 @@
 $(document).ready(function() {
   var messageAmount = $('#message-amount');
+  $( window ).scroll(function() {
+    navigator.geolocation.getCurrentPosition(getLocation);
+  });
   navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
     navigator.geolocation.getCurrentPosition(getLocation);
