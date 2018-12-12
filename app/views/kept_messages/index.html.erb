@@ -1,17 +1,52 @@
 <h1>Your Collection</h1>
 
+<div class="container">
+  <div class="row">
+    <div class="col-4">
+      <% if @kept_messages.length > 0 %>
+        <% @kept_messages.each do |kept_message| %>
+          <% if user_signed_in? && current_user.id == kept_message.user_id %>
+            <ul class="list-unstyled">
+              <li>
+                  <button><%= kept_message.message.content %></button>
+              </li>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-8">
+      <div id="map" class="rounded"></div>
+    </div>
+  </div>
+</div>
 
-<% if @kept_messages.length > 0 %>
-  <% @kept_messages.each do |kept_message| %>
-    <% if user_signed_in? && current_user.id == kept_message.user_id %>
-      <ul class="list-unstyled">
-        <li>
-            <button type="button" class="btn btn-lg btn-white" data-toggle="popover" title="Keep options" data-html="true" data-content="<a rel='nofollow' data-method='delete' href='/kept_messages/<%= kept_message.id %>'>Delete</a>"><%= kept_message.message.content %></button>
-        </li>
-      </ul>
-    <% end %>
-  <% end %>
-<% end %>
+<div id="map" class="rounded"></div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var lat = pos.coords.latitude;
+    var lon = pos.coords.longitude;
+    var mymap = L.map('map').setView([lat, lon], 18);
+
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox.streets',
+        accessToken: "<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
+    }).addTo(mymap);
+
+    var myIcon = L.icon({
+        iconUrl: 'assets/logo.png',
+        iconSize: [68, 58],
+        iconAnchor: [25, 50],
+        popupAnchor: [-3, -45]
+    });
+
+    var myMarker = L.marker([40.9476, -90.3660]).addTo(mymap);
+    myMarker.bindPopup("<b>National Railroad Hall of Fame</b><br>311 East Main Street, Suite 513<br>Galesburg, IL 61401");
+  });
+</script>
 
 
 

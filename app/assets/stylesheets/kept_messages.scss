@@ -1,4 +1,19 @@
-.btn btn-lg btn-white:focus{
-  background-color: lightblue;
-  color: white;
+/*.btn.btn-white:hover {
+  color: #0066ff;
+  background-color: lightgray;
+  border-color: lightblue;
+  transition-duration: 250ms;
+}
+.btn.btn-white:focus,
+.btn.btn-white:active,
+.btn.btn-white.active {
+  color: #99ccff;
+  background-color: gray;
+  border-color: lightblue;
+  transition-duration: 300ms;
+}
+*/
+
+.rounded{
+  height: 500px;
 }
