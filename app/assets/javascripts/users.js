@@ -1,10 +1,12 @@
 $(document).ready(function() {
   var messageAmount = $('#message-amount');
   $( window ).scroll(function() {
+    console.log("yoohoo")
     navigator.geolocation.getCurrentPosition(getLocation);
   });
   navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
+    console.log("yo")
     navigator.geolocation.getCurrentPosition(getLocation);
   }, 3000);
 
@@ -64,6 +66,10 @@ $(document).ready(function() {
           }
         });
     };
+    
+    function onError(err) {
+        console.error(err);
+    }
               
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
