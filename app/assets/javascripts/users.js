@@ -30,6 +30,11 @@ function onError(err) {
   }
   var messageAmount = $('#message-amount');
   navigator.geolocation.getCurrentPosition(getLocation, onError, { timeout: 3000 });
+  $( window ).scroll(function() {
+    console.log("yoohoo")
+    navigator.geolocation.getCurrentPosition(getLocation);
+  });
+  navigator.geolocation.getCurrentPosition(getLocation);
   setInterval(function(){
     console.log("yo")
     navigator.geolocation.getCurrentPosition(getLocation);
@@ -91,7 +96,6 @@ function onError(err) {
           }
         });
     };
-    
               
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");
