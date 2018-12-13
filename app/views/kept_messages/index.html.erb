@@ -4,15 +4,15 @@
   <div class="row">
     <div class="col-4">
       <% if @kept_messages.length > 0 %>
-        <% @kept_messages.each do |kept_message| %>
-          <% if user_signed_in? && current_user.id == kept_message.user_id %>
-            <ul class="list-unstyled">
-              <li>
-                  <button><%= kept_message.message.content %></button>
-              </li>
-            </ul>
+        <ul class="list-unstyled">
+          <% @kept_messages.each do |kept_message| %>
+            <% if user_signed_in? && current_user.id == kept_message.user_id %>
+                <li>
+                    <button class="kept-message-button" data-latitude="<%= kept_message.message.latitude %>" data-longitude="<%= kept_message.message.longitude %>"><%= kept_message.message.content %></button>
+                </li>
+            <% end %>
           <% end %>
-        <% end %>
+      </ul>
       <% end %>
     </div>
     <div class="col-8">
@@ -25,9 +25,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-    var lat = pos.coords.latitude;
-    var lon = pos.coords.longitude;
-    var mymap = L.map('map').setView([lat, lon], 18);
+    var mymap = L.map('map').setView([<%= current_user.latitude %>, <%= current_user.longitude %>], 18);
 
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -36,16 +34,30 @@
         accessToken: "<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
     }).addTo(mymap);
 
-    var myIcon = L.icon({
-        iconUrl: 'assets/logo.png',
-        iconSize: [68, 58],
-        iconAnchor: [25, 50],
-        popupAnchor: [-3, -45]
+    var myMarker = L.marker([<%= current_user.latitude %>, <%= current_user.longitude %>]).addTo(mymap);
+    myMarker.bindPopup("You are here");
+
+    var keptMessageButtons = $('.kept-message-button');
+    keptMessageButtons.on("click", function(event) {
+      var keptLatitude = $(this).data('latitude');
+      var keptLongitude = $(this).data('longitude');
+      mymap.setView([keptLatitude, keptLongitude], 18);
     });
 
-    var myMarker = L.marker([40.9476, -90.3660]).addTo(mymap);
-    myMarker.bindPopup("<b>National Railroad Hall of Fame</b><br>311 East Main Street, Suite 513<br>Galesburg, IL 61401");
+    var keptLongitude = $(this).data('longitude');
+    var keptLatitude = $(this).data('latitude');
+
+    for (var i = 0; i < keptMessageButtons.length; i++ ) {
+      var latitude = $(keptMessageButtons[i]).data('latitude');
+      var longitude = $(keptMessageButtons[i]).data('longitude');
+      var keptMarker = L.marker([latitude, longitude]).addTo(mymap);
+      keptMarker.bindPopup("Content");
+    }
+
   });
+
+
+
 </script>
 
 
