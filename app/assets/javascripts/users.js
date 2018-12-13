@@ -1,10 +1,37 @@
 $(document).ready(function() {
+
+var messageAmount = $('#message-amount');
+var isGettingPosition = false;
+
+getCurrentPosition();
+
+setInterval(function() {
+  getCurrentPosition();
+}, 3000);
+
+
+
+function getCurrentPosition() {
+  if (isGettingPosition) return;
+  isGettingPosition = true;
+
+  navigator.geolocation.getCurrentPosition(onSuccess, onError, { timeout: 3000 });
+}
+
+function onSuccess(pos) {
+  isGettingPosition = false;
+  console.log('onSuccess', pos);
+  getLocation(pos);
+}
+
+function onError(err) {
+  isGettingPosition = false;
+  console.error(err)
+  }
   var messageAmount = $('#message-amount');
-  $( window ).scroll(function() {
-    navigator.geolocation.getCurrentPosition(getLocation);
-  });
-  navigator.geolocation.getCurrentPosition(getLocation);
+  navigator.geolocation.getCurrentPosition(getLocation, onError, { timeout: 3000 });
   setInterval(function(){
+    console.log("yo")
     navigator.geolocation.getCurrentPosition(getLocation);
   }, 3000);
 
@@ -64,6 +91,7 @@ $(document).ready(function() {
           }
         });
     };
+    
               
   var messagesContainer = $("#messages-container");
   var messageBox = $("#message-box");

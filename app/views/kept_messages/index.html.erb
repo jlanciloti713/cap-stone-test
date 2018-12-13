@@ -8,7 +8,7 @@
           <% @kept_messages.each do |kept_message| %>
             <% if user_signed_in? && current_user.id == kept_message.user_id %>
                 <li>
-                    <button class="kept-message-button" data-latitude="<%= kept_message.message.latitude %>" data-longitude="<%= kept_message.message.longitude %>"><%= kept_message.message.content %></button>
+                    <button class="kept-message-button" data-latitude="<%= kept_message.message.latitude %>" data-longitude="<%= kept_message.message.longitude %>" data-content="<%= kept_message.message.content %>"><%= kept_message.message.content %></button>
                 </li>
             <% end %>
           <% end %>
@@ -21,7 +21,6 @@
   </div>
 </div>
 
-<div id="map" class="rounded"></div>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -52,8 +51,9 @@
     for (var i = 0; i < keptMessageButtons.length; i++ ) {
       var latitude = $(keptMessageButtons[i]).data('latitude');
       var longitude = $(keptMessageButtons[i]).data('longitude');
+      var content = $(keptMessageButtons[i]).data('content');
       var keptMarker = L.marker([latitude, longitude]).addTo(mymap);
-      keptMarker.bindPopup("Content");
+      keptMarker.bindPopup(content);
     }
 
   });
