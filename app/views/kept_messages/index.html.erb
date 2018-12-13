@@ -34,8 +34,12 @@
         accessToken: "<%= ENV['MAPBOX_ACCESS_TOKEN'] %>"
     }).addTo(mymap);
 
-    var myMarker = L.marker([<%= current_user.latitude %>, <%= current_user.longitude %>]).addTo(mymap);
-    myMarker.bindPopup("You are here");
+    var circle = L.circle([<%= current_user.latitude %>, <%= current_user.longitude %>], {
+    color: 'green',
+    fillColor: '#99ffcc',
+    fillOpacity: 0.5,
+    radius: 50
+}).addTo(mymap);
 
     var keptMessageButtons = $('.kept-message-button');
     keptMessageButtons.on("click", function(event) {
@@ -44,8 +48,6 @@
       mymap.setView([keptLatitude, keptLongitude], 18);
     });
 
-    var keptLongitude = $(this).data('longitude');
-    var keptLatitude = $(this).data('latitude');
 
     for (var i = 0; i < keptMessageButtons.length; i++ ) {
       var latitude = $(keptMessageButtons[i]).data('latitude');
