@@ -13,12 +13,12 @@
   transition-duration: 300ms;
 }
 .btn.btn-danger {
-  border-color: #ff9999;
+  border-color: #ff4d4d;
   margin-right: 15px;
   float: right;
   padding: 3px;
   color: white;
-  background-color: #ff9999;
+  background-color: #ff4d4d;
   font-size: 10px;
 }
 .btn.btn-danger:hover {
@@ -32,7 +32,9 @@
 .rounded{
   height: 100%;
   max-height: 768px;
-  min-height: 400px;
+  min-height: 500px;
+  border-style: outset;
+  border-width: 2px;
 }
 
 h1 {
