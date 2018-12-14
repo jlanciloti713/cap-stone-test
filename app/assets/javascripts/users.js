@@ -86,8 +86,6 @@ function onError(err) {
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                       <span class="badge badge-primary badge-pill">${response[i].kept_messages.length}</span>
                       ${response[i].content}
-                      ${response[i].latitude}
-                      ${response[i].longitude}
                       <a href='/messages/${response[i].id}' rel="nofollow" data-method="put">Delete</a>
                     </li>
                   </ul>
@@ -127,8 +125,6 @@ function onError(err) {
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="badge badge-primary badge-pill">${response.kept_messages.length}</span>
                 ${response.content}
-                ${response.latitude}
-                ${response.longitude}
                 <a href='/messages/${response.id}' rel="nofollow" data-method="put">Delete</a>
               </li>
             </ul>

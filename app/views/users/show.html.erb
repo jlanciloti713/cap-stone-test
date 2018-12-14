@@ -1,10 +1,4 @@
-<h1 class="text-center">Leave a Mark</h1>
-<div id="user-position">
-  <%= @user.username %>
-  <%= @user.address %>
-  <%= @user.latitude %>
-  <%= @user.longitude %>
-</div>
+<h1 class="text-center" style="margin-bottom: 1.5rem; margin-top: 1.5rem">Leave a Mark</h1>
 
 <%= form_tag("/messages", method: :post) do %>
   <div class="input-group mb-3">
@@ -26,8 +20,6 @@
         <li class="list-group-item d-flex justify-content-between align-items-center">
           <span class="badge badge-primary badge-pill"><%= "#{message.kept_messages.length}" %></span>
           <%= message.content %>
-          <%= message.latitude %>
-          <%= message.longitude %>
           <%= link_to("Delete", "/messages/#{message.id}", method: :put) %>
         </li>
       </ul>

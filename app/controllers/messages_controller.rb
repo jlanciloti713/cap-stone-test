@@ -36,7 +36,7 @@ class MessagesController < ApplicationController
   def found_messages
     id = params[:id]
     @user = User.find(params[:id])
-    @close_messages = Message.where(archived: false )
+    @close_messages = Message.where(archived: false ).order(id: :desc)
   end
 
 end
