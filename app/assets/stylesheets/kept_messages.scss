@@ -1,19 +1,35 @@
-/*.btn.btn-white:hover {
-  color: #0066ff;
-  background-color: lightgray;
-  border-color: lightblue;
-  transition-duration: 250ms;
+.btn.btn-white {
+  margin: 1px;
+  color: white;
+  background-color: #3366cc;
+  border-color: none;
 }
 .btn.btn-white:focus,
 .btn.btn-white:active,
 .btn.btn-white.active {
-  color: #99ccff;
-  background-color: gray;
-  border-color: lightblue;
+  color: #3366cc;
+  background-color: white;
+  border-color: none;
   transition-duration: 300ms;
 }
-*/
+.btn.btn-danger {
+  border-color: #ff9999;
+  margin-right: 15px;
+  float: right;
+  padding: 3px;
+  color: white;
+  background-color: #ff9999;
+  font-size: 10px;
+}
+.btn.btn-danger:hover {
+  font-size: 15px;
+  color: #993333;
+  background-color: white;
+  border-color: white;
+  transition-duration: 300ms
+}
 
 .rounded{
-  height: 500px;
+  height: 100%;
+  max-height: 768px;
 }

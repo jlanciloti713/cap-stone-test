@@ -1,0 +1,21 @@
+.btn.btn-primary {
+  border-color: #ff9999;
+  margin-right: 15px;
+  float: right;
+  padding: 3px;
+  color: white;
+  background-color: #ff9999;
+  font-size: 10px;
+}
+
+.btn.btn-primary:hover {
+  font-size: 15px;
+  color: #993333;
+  background-color: white;
+  border-color: white;
+  transition-duration: 300ms
+}
+    
+.form-display {
+  display: inline;
+}

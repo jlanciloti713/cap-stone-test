@@ -1,31 +1,23 @@
 <h1>You Found These!</h1>
 
 
-<div class="container">
+<div class="fluid-container">
   <div class="row">
     <div class="col-4">
-      <% @close_messages.each do |close_message| %>
-        <% if Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) == 0 || Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) < 0.01 %>
-          <div>
-            <% if current_user.kept_messages.where(message_id: close_message.id).count == 0 %>
-              <ul>
-                <li>
-                  <button class="close-message-button" data-latitude="<%= close_message.latitude %>" data-longitude="<%= close_message.longitude %>" data-content="<%= close_message.content %>"><%= close_message.content %></button>
-                  <p><%= close_message.latitude %></p>
-                  <p><%= close_message.longitude %></p>
-                  <div id="keep-button">
-                    <%=form_tag("/kept_messages", method: :post) do%>
-                      <input type="hidden" name="user_id" id="user-id" value="<%= current_user.id %>">
-                      <input type="hidden" name="message_id" id="message-id" value="<%= close_message.id %>">
-                      <input type="submit" value="Keep it?">
-                    <% end %>
-                  </div>
-                </li>
-              </ul>
-            <% end %>
-          </div>
+      <ul class="list-unstyled">
+        <% @close_messages.each do |close_message| %>
+          <% if Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) == 0 || Geocoder::Calculations.distance_between(["#{@user.latitude}".to_f,"#{@user.longitude}".to_f], ["#{close_message.latitude}".to_f,"#{close_message.longitude}".to_f]) < 0.01 %>
+            <div>
+              <% if current_user.kept_messages.where(message_id: close_message.id).count == 0 %>
+                  <li>
+                    <button class= "btn btn-white kept-message-button close-message-button" data-latitude="<%= close_message.latitude %>" data-longitude="<%= close_message.longitude %>" data-content="<%= close_message.content %>"><%= close_message.content %></button>
+                    <%= link_to("Keep?", "/kept_messages/#{close_message.id}/#{current_user.id}", method: :post, class: "btn btn-primary") %>
+                  </li>
+              <% end %>
+            </div>
+          <% end %>
         <% end %>
-      <% end %>
+      </ul>
     </div>
       <div class="col-8">
         <div id="map" class="rounded"></div>
@@ -45,17 +37,19 @@
     }).addTo(mymap);
 
     var circle = L.circle([<%= current_user.latitude %>, <%= current_user.longitude %>], {
-    color: 'green',
-    fillColor: '#99ffcc',
-    fillOpacity: 0.5,
-    radius: 50
-}).addTo(mymap);
+      color: 'green',
+      fillColor: '#99ffcc',
+      fillOpacity: 0.5,
+      radius: 50
+    }).addTo(mymap);
 
     var closeMessageButtons = $('.close-message-button');
     closeMessageButtons.on("click", function(event) {
       var closeLatitude = $(this).data('latitude');
       var closeLongitude = $(this).data('longitude');
       mymap.setView([closeLatitude, closeLongitude], 18);
+      var markerId = $(this).data("marker_id");
+      mymap._targets[markerId + 1].openPopup();
     });
 
 
@@ -65,6 +59,7 @@
       var content = $(closeMessageButtons[i]).data('content');
       var keptMarker = L.marker([latitude, longitude]).addTo(mymap);
       keptMarker.bindPopup(content);
+      $(closeMessageButtons[i]).data('marker_id', keptMarker._leaflet_id);
     }
 
   });

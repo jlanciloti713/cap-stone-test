@@ -2,12 +2,12 @@ $(document).ready(function() {
 
 var messageAmount = $('#message-amount');
 var isGettingPosition = false;
+locationGrab();
+// getCurrentPosition();
 
-getCurrentPosition();
-
-setInterval(function() {
-  getCurrentPosition();
-}, 3000);
+// setInterval(function() {
+//   getCurrentPosition();
+// }, 3000);
 
 
 
@@ -26,19 +26,26 @@ function onSuccess(pos) {
 
 function onError(err) {
   isGettingPosition = false;
-  console.error(err)
+  console.error(err);
+}
+
+  // navigator.geolocation.getCurrentPosition(getLocation, onError, { timeout: 3000 });
+  // $( window ).scroll(function() {
+  //   console.log("yoohoo")
+  //   navigator.geolocation.getCurrentPosition(getLocation);
+  // });
+
+  function locationGrab() {
+    navigator.geolocation.getCurrentPosition(getLocation);
+
+    setTimeout(function() {
+      locationGrab();
+    }, 3000);
   }
-  var messageAmount = $('#message-amount');
-  navigator.geolocation.getCurrentPosition(getLocation, onError, { timeout: 3000 });
-  $( window ).scroll(function() {
-    console.log("yoohoo")
-    navigator.geolocation.getCurrentPosition(getLocation);
-  });
-  navigator.geolocation.getCurrentPosition(getLocation);
-  setInterval(function(){
-    console.log("yo")
-    navigator.geolocation.getCurrentPosition(getLocation);
-  }, 3000);
+  // setInterval(function(){
+  //   console.log("yo")
+  //   navigator.geolocation.getCurrentPosition(getLocation);
+  // }, 3000);
 
     function getLocation(pos) {
         var CSRFToken = $('meta[name="csrf-token"]').prop("content");

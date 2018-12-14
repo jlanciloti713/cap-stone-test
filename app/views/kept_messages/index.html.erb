@@ -1,6 +1,5 @@
-<h1>Your Collection</h1>
-
-<div class="container">
+<h1 class="text-center">View Your Collection</h1>
+<div class="fluid-container">
   <div class="row">
     <div class="col-4">
       <% if @kept_messages.length > 0 %>
@@ -8,7 +7,8 @@
           <% @kept_messages.each do |kept_message| %>
             <% if user_signed_in? && current_user.id == kept_message.user_id %>
                 <li>
-                    <button class="kept-message-button" data-latitude="<%= kept_message.message.latitude %>" data-longitude="<%= kept_message.message.longitude %>" data-content="<%= kept_message.message.content %>"><%= kept_message.message.content %></button>
+                    <button class="btn btn-white kept-message-button" data-latitude="<%= kept_message.message.latitude %>" data-longitude="<%= kept_message.message.longitude %>" data-content="<%= kept_message.message.content %>" data-marker_id=""><%= kept_message.message.content %></button>
+                    <%= link_to("Delete", "/kept_messages/#{kept_message.id}", method: :delete, class: "btn btn-danger") %>
                 </li>
             <% end %>
           <% end %>
@@ -45,6 +45,8 @@
       var keptLatitude = $(this).data('latitude');
       var keptLongitude = $(this).data('longitude');
       mymap.setView([keptLatitude, keptLongitude], 18);
+      var markerId = $(this).data("marker_id");
+      mymap._targets[markerId + 1].openPopup();
     });
 
 
@@ -54,6 +56,7 @@
       var content = $(keptMessageButtons[i]).data('content');
       var keptMarker = L.marker([latitude, longitude]).addTo(mymap);
       keptMarker.bindPopup(content);
+      $(keptMessageButtons[i]).data('marker_id', keptMarker._leaflet_id);
     }
 
   });
